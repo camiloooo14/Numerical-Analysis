@@ -15,3 +15,5 @@ app.add_middleware(
 app.include_router(roots.router)
 app.include_router(interpolation.router)
 app.include_router(system_of_equations.router)
+
+#C:\Users\sarii\AppData\Roaming\Python\Python313\Scripts\uvicorn main:app --reload

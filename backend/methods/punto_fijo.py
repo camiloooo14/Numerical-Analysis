@@ -3,8 +3,8 @@ from typing import Callable, List, Tuple
 import sympy
 from pydantic import BaseModel, Field
 
-from backend.utils.errors import ErrorType, calculate_error
-from backend.utils.parsing import ExpressionAnnotation, to_latex
+from utils.errors import ErrorType, calculate_error
+from utils.parsing import ExpressionAnnotation, to_latex
 
 
 class FixedPointParams(BaseModel):

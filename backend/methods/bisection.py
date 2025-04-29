@@ -1,14 +1,10 @@
-from typing import Callable, List, Tuple
-
-
-
+from typing import Callable, List
 import sympy
 from pydantic import BaseModel, Field
+from utils.errors import ErrorType, calculate_error
+from utils.parsing import to_latex
 
-from backend.utils.errors import ErrorType, calculate_error
-from backend.utils.parsing import ExpressionAnnotation, to_latex
-
-
+# Se asume que ExpressionAnnotation no es necesario, lo reemplazamos por str
 class BisectionIteration(BaseModel):
     iteration: int
     a: float
@@ -19,13 +15,13 @@ class BisectionIteration(BaseModel):
 
 
 class BisectionRoots(BaseModel):
-    expression: str
+    expression: str  # La expresión ahora es un string.
     root: float
     table: List[BisectionIteration]
 
 
 class BisectionRootsParams(BaseModel):
-    expression: ExpressionAnnotation
+    expression: str  # Recibe una expresión en formato string
     error_type: ErrorType = ErrorType.ABSOLUTE
     a: float
     b: float
@@ -38,21 +34,8 @@ def bisection_roots(
 ) -> BisectionRoots:
     """
     Find a root of a function using the bisection method, requires a function to be continuous in the interval [a, b] and f(a) * f(b) < 0.
-
-    Parameters
-    ==========
-
-    expr: A sympy expression representing the function.
-    a: The left bound of the interval.
-    b: The right bound of the interval.
-    tol: The tolerance of the method.
-    niter: The maximum number of iterations.
-
-    Returns
-    =======
-
-    A tuple containing the root and a pandas dataframe with the iterations data.
     """
+
     x = sympy.symbols("x")
     f: Callable[[float], float] = sympy.lambdify(x, expr, "math", docstring_limit=-1)
 
