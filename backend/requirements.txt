@@ -1,0 +1,7 @@
+pandas>=2.1.0,<3.0.0
+scipy>=1.11.2,<2.0.0
+sympy>=1.12,<2.0.0
+uvicorn>=0.23.2,<0.24.0
+fastapi[all]>=0.103.1,<0.104.0
+pydantic>=2.3.0,<3.0.0
+antlr4-python3-runtime==4.11
