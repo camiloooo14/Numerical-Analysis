@@ -5,14 +5,14 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from methods.bisection import (BisectionRoots, BisectionRootsParams,
+from RootFindingMethods.bisection import (BisectionRoots, BisectionRootsParams,
                                bisection_roots)
-from methods.newton import NewtonRoots, NewtonRootsParams, newton_roots
-from methods.punto_fijo import (FixedPointParams, FixedPointRoots,
+from RootFindingMethods.newton import NewtonRoots, NewtonRootsParams, newton_roots
+from RootFindingMethods.punto_fijo import (FixedPointParams, FixedPointRoots,
                                 fixed_point_roots)
-from methods.regla_falsa import FalseRuleParams, FalseRuleRoots, ReglaFalsa
-from methods.secante import Secante, SecanteParams, SecanteRoots
-from methods.symbolic import SymbolicRoots, SymbolicRootsParams, symbolic_roots
+from RootFindingMethods.regla_falsa import FalseRuleParams, FalseRuleRoots, ReglaFalsa
+from RootFindingMethods.secante import Secante, SecanteParams, SecanteRoots
+from RootFindingMethods.symbolic import SymbolicRoots, SymbolicRootsParams, symbolic_roots
 
 router = APIRouter(
     prefix="/roots",

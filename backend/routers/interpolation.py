@@ -4,10 +4,10 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from methods.lagrange import Lagrange, LagranInt, LagranParams
-from methods.newton_int import NewtonInt, NewtonInterpol, NewtonParams
-from methods.spline import Spline, SplineParams, get_spline
-from methods.vandermonde import VanderInt, Vandermonde, VanderParams
+from InterpolationMethods.lagrange import Lagrange, LagranInt, LagranParams
+from InterpolationMethods.newton_int import NewtonInt, NewtonInterpol, NewtonParams
+from InterpolationMethods.spline import Spline, SplineParams, get_spline
+from InterpolationMethods.vandermonde import VanderInt, Vandermonde, VanderParams
 
 router = APIRouter(
     prefix="/interpolation",

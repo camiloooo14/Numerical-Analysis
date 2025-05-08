@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import BisectionForm from './components/BisectionForm'; 
+import BisectionForm from './components/BisectionForm';
+import FalseRuleForm from './components/FalseRuleForm';
 
 export default function App() {
   return (
@@ -14,11 +15,17 @@ export default function App() {
                   Método de Bisección
                 </Link>
               </li>
+              <li>
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/regla-falsa">
+                  Método de Regla Falsa
+                </Link>
+              </li>
             </ul>
           </nav>
 
           <Routes>
             <Route path="/biseccion" element={<BisectionForm />} />
+            <Route path="/regla-falsa" element={<FalseRuleForm />} />
             {/* Puedes agregar más rutas aquí */}
           </Routes>
         </div>

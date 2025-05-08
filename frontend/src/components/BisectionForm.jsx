@@ -6,10 +6,11 @@ export default function BisectionForm() {
     expression: "",
     a: "",
     b: "",
-    tol: 0.0001, 
-    niter: 50, 
+    tol: 0.0001,
+    niter: 50,
     error_type: "absolute",
-  });  
+  });
+
   const [result, setResult] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -20,19 +21,17 @@ export default function BisectionForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
-
-    // Convertir los valores numéricos a los tipos correctos antes de enviar
-    const formData = {
-      ...form,
-      a: parseFloat(form.a),
-      b: parseFloat(form.b),
-      tol: parseFloat(form.tol),
-      niter: parseInt(form.niter, 10),
-    };
-
+    setResult(null);
+    setLoading(true);
     try {
+      const formData = {
+        ...form,
+        a: parseFloat(form.a),
+        b: parseFloat(form.b),
+        tol: parseFloat(form.tol),
+        niter: parseInt(form.niter, 10),
+      };
       const response = await axios.post("http://127.0.0.1:8000/roots/bisection", formData);
       setResult(response.data);
     } catch (err) {
@@ -136,8 +135,7 @@ export default function BisectionForm() {
         <div className="mt-8 bg-gray-50 p-6 rounded-lg shadow-md">
           <h3 className="text-xl font-bold text-indigo-600 mb-4">Resultado:</h3>
           <p className="text-lg">
-            Raíz encontrada:{" "}
-            <span className="font-semibold text-indigo-600">{result.root}</span>
+            Raíz encontrada: <span className="font-semibold text-indigo-600">{result.root}</span>
           </p>
 
           <h4 className="text-lg font-semibold text-gray-700 mt-6">Tabla de Iteraciones:</h4>

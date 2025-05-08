@@ -4,10 +4,10 @@ from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
-from methods.gauss_seidel import (GaussSeidelParams, GaussSeidelResult,
+from LinearSystemsMethods.gauss_seidel import (GaussSeidelParams, GaussSeidelResult,
                                   gauss_seidel_method)
-from methods.jacobi import JacobiParams, JacobiResult, jacobi_method
-from methods.sor import SORParams, SORResult, sor_method
+from LinearSystemsMethods.jacobi import JacobiParams, JacobiResult, jacobi_method
+from LinearSystemsMethods.sor import SORParams, SORResult, sor_method
 
 router = APIRouter(
     prefix="/system-of-equations",
