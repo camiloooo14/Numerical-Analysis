@@ -12,4 +12,6 @@ export const calculateBisection = (params) => API.post('/bisection', params);
 export const calculateNewton = (params) => API.post('/newton', params); 
 
 
+
+
 export default API;
