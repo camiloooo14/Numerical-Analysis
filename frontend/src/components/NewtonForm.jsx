@@ -1,109 +1,111 @@
-import { useState } from "react";
+import { useState } from 'react';
+import axios from 'axios';
+//import './NewtonForm.css'; 
 
-const NewtonForm = ({ onSubmit }) => {
-  const [expression, setExpression] = useState("x**3 - x - 2");
-  const [x0, setX0] = useState(1.5);
-  const [tol, setTol] = useState(1e-7);
-  const [niter, setNiter] = useState(50);
-  const [errorType, setErrorType] = useState("absolute");
-  const [multipleRoots, setMultipleRoots] = useState(false);
 
-  const handleSubmit = (e) => {
+export default function NewtonForm() {
+  const [form, setForm] = useState({
+    f_expr: '',
+    df_expr: '',
+    x0: '',
+    tol: '0.0001',
+    niter: '100',
+    error_type: 'absolute'
+  });
+
+  const [result, setResult] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    onSubmit({
-      expression,
-      x0,
-      tol,
-      niter,
-      error_type: errorType,
-      multiple_roots: multipleRoots,
-    });
+    setError(null);
+    setResult(null);
+    setLoading(true);
+    try {
+      const formData = {
+        ...form,
+        x0: parseFloat(form.x0),
+        tol: parseFloat(form.tol),
+        niter: parseInt(form.niter, 10),
+      };
+      const response = await axios.post("http://127.0.0.1:8000/roots/newton", formData);
+      setResult(response.data);
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Error al procesar la solicitud');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-4 rounded shadow">
-      <div>
-        <label className="block font-medium">Función (en Python):</label>
-        <input
-          type="text"
-          value={expression}
-          onChange={(e) => setExpression(e.target.value)}
-          className="w-full border px-2 py-1 rounded"
-          placeholder="Ej: x**3 - x - 2"
-          required
-        />
+    <div className="frf-container">
+      <div className="frf-card">
+        <h2 className="frf-title">Método de Newton</h2>
+        <form onSubmit={handleSubmit} className="frf-form">
+          <label>
+            Función f(x)
+            <input type="text" name="expression" placeholder="x^2 - 4" value={form.expression} onChange={handleChange} required />
+          </label>
+          <label>
+            Valor inicial (x₀)
+            <input type="number" name="x0" value={form.x0} onChange={handleChange} required />
+          </label>
+          <label>
+            Tolerancia
+            <input type="number" name="tol" step="any" min="0.000000000000000000001" max="1" value={form.tol} onChange={handleChange} required />
+          </label>
+          <label>
+            Número de iteraciones
+            <input type="number" name="niter" min="1" max="100" value={form.niter} onChange={handleChange} required />
+          </label>
+          <label>
+            Tipo de error
+            <select name="error_type" value={form.error_type} onChange={handleChange} required>
+              <option value="absolute">Absoluto</option>
+              <option value="relative">Relativo</option>
+            </select>
+          </label>
+          <button type="submit" className="frf-btn" disabled={loading}>
+            {loading ? 'Calculando...' : 'Calcular'}
+          </button>
+        </form>
+        {error && <div className="frf-error">{error}</div>}
+        {result && (
+          <div className="frf-result">
+            <h3>Resultados</h3>
+            <div><b>Raíz encontrada:</b> {result.root}</div>
+            <div className="frf-table-container">
+              <table className="frf-table">
+                <thead>
+                  <tr>
+                    <th>Iteración</th>
+                    <th>x</th>
+                    <th>f(x)</th>
+                    <th>f'(x)</th>
+                    <th>Error</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {result.table.map((row, index) => (
+                    <tr key={index}>
+                      <td>{row.iteration}</td>
+                      <td>{row.x}</td>
+                      <td>{row.fx}</td>
+                      <td>{row.dfx}</td>
+                      <td>{row.error}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block font-medium">x₀ (valor inicial):</label>
-          <input
-            type="number"
-            value={x0}
-            onChange={(e) => setX0(parseFloat(e.target.value))}
-            className="w-full border px-2 py-1 rounded"
-            step="any"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Tolerancia:</label>
-          <input
-            type="number"
-            value={tol}
-            onChange={(e) => setTol(parseFloat(e.target.value))}
-            className="w-full border px-2 py-1 rounded"
-            step="any"
-            min="1e-21"
-            max="1"
-            required
-          />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block font-medium">Máx. iteraciones:</label>
-          <input
-            type="number"
-            value={niter}
-            onChange={(e) => setNiter(parseInt(e.target.value))}
-            className="w-full border px-2 py-1 rounded"
-            min="1"
-            max="100"
-            required
-          />
-        </div>
-        <div>
-          <label className="block font-medium">Tipo de error:</label>
-          <select
-            value={errorType}
-            onChange={(e) => setErrorType(e.target.value)}
-            className="w-full border px-2 py-1 rounded"
-          >
-            <option value="absolute">Absoluto</option>
-            <option value="relative">Relativo</option>
-          </select>
-        </div>
-      </div>
-
-      <div>
-        <label className="inline-flex items-center gap-2">
-          <input
-            type="checkbox"
-            checked={multipleRoots}
-            onChange={(e) => setMultipleRoots(e.target.checked)}
-          />
-          ¿Múltiples raíces?
-        </label>
-      </div>
-
-      <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-        Calcular raíz
-      </button>
-    </form>
+    </div>
   );
-};
-
-export default NewtonForm;
+}

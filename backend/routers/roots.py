@@ -113,7 +113,7 @@ def get_bisection_roots(
 def get_newton_roots(params: NewtonRootsParams) -> NewtonRoots:
     try:
         solution = newton_roots(
-            params.expression, params.error_type, params.x0, params.tol, params.niter
+            params.expression, params.error_type, False, params.x0, params.tol, params.niter
         )
         return solution
     except Exception as e:
