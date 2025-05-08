@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import BisectionForm from './components/BisectionForm';
 import FalseRuleForm from './components/FalseRuleForm';
+import NewtonForm from './components/NewtonForm';
 
 export default function App() {
   return (
@@ -20,13 +21,18 @@ export default function App() {
                   Método de Regla Falsa
                 </Link>
               </li>
+              <li>
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/newton">
+                  Método de Newton
+                </Link>
+              </li>
             </ul>
           </nav>
 
           <Routes>
             <Route path="/biseccion" element={<BisectionForm />} />
             <Route path="/regla-falsa" element={<FalseRuleForm />} />
-            {/* Puedes agregar más rutas aquí */}
+            <Route path="/newton" element={<NewtonForm />} />
           </Routes>
         </div>
       </div>

@@ -8,9 +8,8 @@ const API = axios.create({
 // Bisección
 export const calculateBisection = (params) => API.post('/bisection', params);
 
-// Aquí luego agregas:
-// export const calculateNewton = (params) => API.post('/newton', params);
-// export const calculateGaussSeidel = (params) => API.post('/gauss-seidel', params);
-// etc.
+//Newton 
+export const calculateNewton = (params) => API.post('/newton', params); 
+
 
 export default API;
