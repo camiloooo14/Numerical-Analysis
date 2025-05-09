@@ -20,4 +20,7 @@ export const calculateHelp = (params) => API.post('/help', params);
 //secante
 export const calculateSecant = (params) => API.post('/Secant', params);
 
+//Gauss-Seidel
+export const calculateGaussSeidel = (params) => API.post('/gauss_seidel', params);
+
 export default API;

@@ -5,6 +5,7 @@ import NewtonForm from './components/NewtonForm';
 import FixedPointForm from './components/FixedPointForm';
 import HelpPage from './components/HelpPage';
 import SecanteForm from './components/SecanteForm';
+import GaussSeidelForm from './components/GaussSeidelForm';
 
 export default function App() {
   return (
@@ -44,6 +45,11 @@ export default function App() {
                   Método de Secante
                 </Link>
               </li>
+              <li>
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/gauss_seidel">
+                  Método de Gauss-Seidel
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -54,6 +60,7 @@ export default function App() {
             <Route path="/fixed-point" element={<FixedPointForm />} />
             <Route path="/help" element={<HelpPage />} />
             <Route path="/Secant" element={<SecanteForm />} />
+            <Route path="/gauss_seidel" element={<GaussSeidelForm />} />
           </Routes>
         </div>
       </div>

@@ -11,6 +11,8 @@ from RootFindingMethods.newton import NewtonRoots, NewtonRootsParams, newton_roo
 from RootFindingMethods.symbolic import SymbolicRoots, SymbolicRootsParams, symbolic_roots
 from RootFindingMethods.regla_falsa import FalseRuleRoots, FalseRuleParams, ReglaFalsa
 from RootFindingMethods.secante import SecanteRoots, SecanteParams, Secante
+from LinearSystemsMethods.gauss_seidel import gauss_seidel_method, GaussSeidelParams, GaussSeidelResult
+
 
 router = APIRouter(
     prefix="/roots",
@@ -181,6 +183,26 @@ def get_Secant_params(params: SecanteParams) -> SecanteRoots:
         solution = Secante(
             params.f_expr, params.x0, params.x1, params.niter, params.tol, params.error_type
         )
+        return solution
+    except Exception as e:
+        return JSONResponse(
+            status_code=409,
+            content={
+                "detail": "Cannot find roots with the given parameters",
+                "error": str(e),
+            },
+        )
+@router.post(
+    "/gauss_seidel",
+    response_model=GaussSeidelResult,
+    responses={
+        200: {"model": GaussSeidelResult},
+        **responses,
+    },
+)
+def get_GaussSeidel_params(params: GaussSeidelParams) -> Union[GaussSeidelResult, JSONResponse]:
+    try:
+        solution = gauss_seidel_method(params)
         return solution
     except Exception as e:
         return JSONResponse(

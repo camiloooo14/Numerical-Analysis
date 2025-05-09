@@ -13,6 +13,9 @@ from RootFindingMethods.punto_fijo import (FixedPointParams, FixedPointRoots,
 from RootFindingMethods.regla_falsa import FalseRuleParams, FalseRuleRoots, ReglaFalsa
 from RootFindingMethods.secante import Secante, SecanteParams, SecanteRoots
 from RootFindingMethods.symbolic import SymbolicRoots, SymbolicRootsParams, symbolic_roots
+from LinearSystemsMethods.gauss_seidel import gauss_seidel_method, GaussSeidelParams, GaussSeidelResult
+
+
 
 router = APIRouter(
     prefix="/roots",
@@ -202,6 +205,28 @@ def get_Secant_params(params: SecanteParams) -> SecanteRoots:
             params.tol,
             params.error_type,
         )
+        return solution
+    except Exception as e:
+        return JSONResponse(
+            status_code=409,
+            content={
+                "detail": "Cannot find roots with the given parameters",
+                "error": str(e),
+            },
+        )
+
+
+@router.post(
+    "/gauss_seidel",
+    response_model=GaussSeidelResult,
+    responses={
+        200: {"model": GaussSeidelResult},
+        **responses,
+    },
+)
+def get_GaussSeidel_params(params: GaussSeidelParams) -> GaussSeidelResult:
+    try:
+        solution = gauss_seidel_method(params)
         return solution
     except Exception as e:
         return JSONResponse(
