@@ -3,6 +3,7 @@ import BisectionForm from './components/BisectionForm';
 import FalseRuleForm from './components/FalseRuleForm';
 import NewtonForm from './components/NewtonForm';
 import FixedPointForm from './components/FixedPointForm';
+import HelpPage from './components/HelpPage';
 
 export default function App() {
   return (
@@ -12,6 +13,11 @@ export default function App() {
           <h1 className="text-4xl font-bold mb-6 text-center text-indigo-600">Análisis Numérico</h1>
           <nav className="mb-8">
             <ul className="flex justify-center gap-6">
+              <li>
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/help">
+                  Sección de ayuda
+                </Link>
+              </li>
               <li>
                 <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/biseccion">
                   Método de Bisección
@@ -40,6 +46,7 @@ export default function App() {
             <Route path="/regla-falsa" element={<FalseRuleForm />} />
             <Route path="/newton" element={<NewtonForm />} />
             <Route path="/fixed-point" element={<FixedPointForm />} />
+            <Route path="/help" element={<HelpPage />} />
           </Routes>
         </div>
       </div>

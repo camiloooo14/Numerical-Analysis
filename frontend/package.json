@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
+    "html-react-parser": "^5.2.3",
+    "katex": "^0.16.22",
+    "prop-types": "^15.8.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-katex": "^3.0.1",
     "react-router-dom": "^7.5.3"
   },
   "devDependencies": {
