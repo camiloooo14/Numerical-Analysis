@@ -4,6 +4,7 @@ import FalseRuleForm from './components/FalseRuleForm';
 import NewtonForm from './components/NewtonForm';
 import FixedPointForm from './components/FixedPointForm';
 import HelpPage from './components/HelpPage';
+import SecanteForm from './components/SecanteForm';
 
 export default function App() {
   return (
@@ -38,6 +39,11 @@ export default function App() {
                   Método de Punto Fijo
                 </Link>
               </li>
+              <li>
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/secante">
+                  Método de Secante
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -47,6 +53,7 @@ export default function App() {
             <Route path="/newton" element={<NewtonForm />} />
             <Route path="/fixed-point" element={<FixedPointForm />} />
             <Route path="/help" element={<HelpPage />} />
+            <Route path="/secante" element={<SecanteForm />} />
           </Routes>
         </div>
       </div>

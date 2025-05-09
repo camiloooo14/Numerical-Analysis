@@ -5,7 +5,7 @@ import { InlineMath } from 'react-katex';
 export default function HelpPage() {
   return (
     <div className="help-container" style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
-      <h1>Bienvenido a la herramienta de Métodos Numéricos</h1>
+      <h1>Bienvenido a la herramienta de Análisis Numérico</h1>
       <p>Este proyecto incluye implementaciones para resolver problemas clásicos de análisis numérico.</p>
 
       <h2>Métodos de Búsqueda de Raíces</h2>
