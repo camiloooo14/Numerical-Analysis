@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import BisectionForm from './components/BisectionForm';
 import FalseRuleForm from './components/FalseRuleForm';
 import NewtonForm from './components/NewtonForm';
+import FixedPointForm from './components/FixedPointForm';
 
 export default function App() {
   return (
@@ -26,6 +27,11 @@ export default function App() {
                   Método de Newton
                 </Link>
               </li>
+              <li>
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/fixed-point">
+                  Método de Punto Fijo
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -33,6 +39,7 @@ export default function App() {
             <Route path="/biseccion" element={<BisectionForm />} />
             <Route path="/regla-falsa" element={<FalseRuleForm />} />
             <Route path="/newton" element={<NewtonForm />} />
+            <Route path="/fixed-point" element={<FixedPointForm />} />
           </Routes>
         </div>
       </div>

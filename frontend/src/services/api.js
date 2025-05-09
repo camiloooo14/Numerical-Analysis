@@ -12,6 +12,7 @@ export const calculateBisection = (params) => API.post('/bisection', params);
 export const calculateNewton = (params) => API.post('/newton', params); 
 
 
-
+//Fixed point
+export const calculateFixedPoint = (params) => API.post('/fixed_point', params);
 
 export default API;
