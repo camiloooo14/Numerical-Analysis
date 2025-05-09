@@ -33,7 +33,7 @@ export default function SecanteForm() {
         tol: parseFloat(form.tol),
         niter: parseInt(form.niter, 10),
       };
-      const response = await axios.post("http://127.0.0.1:8000/roots/secante", formData);
+      const response = await axios.post("http://127.0.0.1:8000/roots/Secant", formData);
       setResult(response.data);
     } catch (err) {
       setError("Error al calcular. Revisa los datos.");

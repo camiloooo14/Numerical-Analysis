@@ -40,7 +40,7 @@ export default function App() {
                 </Link>
               </li>
               <li>
-                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/secante">
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/Secant">
                   Método de Secante
                 </Link>
               </li>
@@ -53,7 +53,7 @@ export default function App() {
             <Route path="/newton" element={<NewtonForm />} />
             <Route path="/fixed-point" element={<FixedPointForm />} />
             <Route path="/help" element={<HelpPage />} />
-            <Route path="/secante" element={<SecanteForm />} />
+            <Route path="/Secant" element={<SecanteForm />} />
           </Routes>
         </div>
       </div>

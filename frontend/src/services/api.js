@@ -18,6 +18,6 @@ export const calculateFixedPoint = (params) => API.post('/fixed_point', params);
 export const calculateHelp = (params) => API.post('/help', params);
 
 //secante
-export const calculateSecante = (params) => API.post('/secante', params);
+export const calculateSecant = (params) => API.post('/Secant', params);
 
 export default API;
