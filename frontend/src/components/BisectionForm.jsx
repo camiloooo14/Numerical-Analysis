@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import "./BisectionForm.css";
 
 export default function BisectionForm() {
   const [form, setForm] = useState({
