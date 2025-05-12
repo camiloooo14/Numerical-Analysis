@@ -1,5 +1,7 @@
+// BisectionForm.jsx
 import { useState } from "react";
 import axios from "axios";
+import DesmosGraph from "./DesmosGraph";
 import "./BisectionForm.css";
 
 export default function BisectionForm() {
@@ -133,40 +135,48 @@ export default function BisectionForm() {
       {error && <p className="text-red-500 text-center mt-4">{error}</p>}
 
       {result && (
-        <div className="mt-8 bg-gray-50 p-6 rounded-lg shadow-md">
-          <h3 className="text-xl font-bold text-indigo-600 mb-4">Resultado:</h3>
-          <p className="text-lg">
-            Raíz encontrada: <span className="font-semibold text-indigo-600">{result.root}</span>
-          </p>
+        <>
+          <div className="mt-8 bg-gray-50 p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-bold text-indigo-600 mb-4">Resultado:</h3>
+            <p className="text-lg">
+              Raíz encontrada:{" "}
+              <span className="font-semibold text-indigo-600">{result.root}</span>
+            </p>
 
-          <h4 className="text-lg font-semibold text-gray-700 mt-6">Tabla de Iteraciones:</h4>
-          <div className="overflow-x-auto">
-            <table className="min-w-full table-auto mt-2 text-sm">
-              <thead className="bg-indigo-100">
-                <tr>
-                  <th className="px-4 py-2 text-indigo-600">Iteración</th>
-                  <th className="px-4 py-2 text-indigo-600">a</th>
-                  <th className="px-4 py-2 text-indigo-600">b</th>
-                  <th className="px-4 py-2 text-indigo-600">xm</th>
-                  <th className="px-4 py-2 text-indigo-600">f(xm)</th>
-                  <th className="px-4 py-2 text-indigo-600">Error</th>
-                </tr>
-              </thead>
-              <tbody>
-                {result.table.map((row, idx) => (
-                  <tr key={idx} className="bg-white text-center border-b hover:bg-gray-100">
-                    <td className="px-4 py-2">{row.iteration}</td>
-                    <td className="px-4 py-2">{row.a.toFixed(6)}</td>
-                    <td className="px-4 py-2">{row.b.toFixed(6)}</td>
-                    <td className="px-4 py-2">{row.xm.toFixed(6)}</td>
-                    <td className="px-4 py-2">{row.f_xm.toExponential(3)}</td>
-                    <td className="px-4 py-2">{row.error.toExponential(3)}</td>
+            <h4 className="text-lg font-semibold text-gray-700 mt-6">Tabla de Iteraciones:</h4>
+            <div className="overflow-x-auto">
+              <table className="min-w-full table-auto mt-2 text-sm">
+                <thead className="bg-indigo-100">
+                  <tr>
+                    <th className="px-4 py-2 text-indigo-600">Iteración</th>
+                    <th className="px-4 py-2 text-indigo-600">a</th>
+                    <th className="px-4 py-2 text-indigo-600">b</th>
+                    <th className="px-4 py-2 text-indigo-600">xm</th>
+                    <th className="px-4 py-2 text-indigo-600">f(xm)</th>
+                    <th className="px-4 py-2 text-indigo-600">Error</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {result.table.map((row, idx) => (
+                    <tr key={idx} className="bg-white text-center border-b hover:bg-gray-100">
+                      <td className="px-4 py-2">{row.iteration}</td>
+                      <td className="px-4 py-2">{row.a.toFixed(6)}</td>
+                      <td className="px-4 py-2">{row.b.toFixed(6)}</td>
+                      <td className="px-4 py-2">{row.xm.toFixed(6)}</td>
+                      <td className="px-4 py-2">{row.f_xm.toExponential(3)}</td>
+                      <td className="px-4 py-2">{row.error.toExponential(3)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold text-indigo-700 mb-2">Gráfica de la función:</h3>
+            <DesmosGraph expression={form.expression} />
+          </div>
+        </>
       )}
     </div>
   );
