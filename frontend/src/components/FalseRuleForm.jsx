@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import './FalseRuleForm.css';
+import DesmosGraph from './DesmosGraph';
 
 export default function FalseRuleForm() {
   const [form, setForm] = useState({
@@ -42,6 +43,12 @@ export default function FalseRuleForm() {
     }
   };
 
+  // Crear expresiones para puntos xm
+  const points = result?.table.map(row => ({
+    x: row.xm,
+    y: row.f_xm
+  })) || [];
+
   return (
     <div className="frf-container">
       <div className="frf-card">
@@ -76,6 +83,14 @@ export default function FalseRuleForm() {
           </label>
           <button type="submit" className="frf-btn" disabled={loading}>{loading ? 'Calculando...' : 'Calcular'}</button>
         </form>
+
+        {form.f_expr && (
+          <div style={{ marginTop: '30px' }}>
+            <h3>Gráfica de f(x)</h3>
+            <DesmosGraph expression={form.f_expr.replace(/\^/g, '^')} points={points} />
+          </div>
+        )}
+
         {error && <div className="frf-error">{error}</div>}
         {result && (
           <div className="frf-result">
@@ -112,4 +127,4 @@ export default function FalseRuleForm() {
       </div>
     </div>
   );
-} 
+}
