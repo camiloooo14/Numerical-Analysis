@@ -7,6 +7,7 @@ import HelpPage from './components/HelpPage';
 import SecanteForm from './components/SecanteForm';
 import GaussSeidelForm from './components/GaussSeidelForm';
 import SORForm from './components/SORForm';
+import JacobiForm from './components/JacobiForm';
 
 export default function App() {
   return (
@@ -56,6 +57,11 @@ export default function App() {
                   Método de SOR
                 </Link>
               </li>
+              <li>
+                <Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/system-of-equations/jacobi">
+                  Método de Jacobi
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -68,6 +74,7 @@ export default function App() {
             <Route path="/Secant" element={<SecanteForm />} />
             <Route path="/system-of-equations/gauss_seidel" element={<GaussSeidelForm />} />
             <Route path="/system-of-equations/sor" element={<SORForm />} />
+            <Route path="/system-of-equations/jacobi" element={<JacobiForm />} />
           </Routes>
         </div>
       </div>

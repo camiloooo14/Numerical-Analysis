@@ -26,4 +26,7 @@ export const calculateGaussSeidel = (params) => API.post('/system-of-equations/g
 //SOR
 export const calculateSOR = (params) => API.post('/system-of-equations/sor', params);
 
+//Jacobi
+export const calculateJacobi = (params) => API.post('/system-of-equations/jacobi', params);
+
 export default API;
