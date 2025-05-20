@@ -10,6 +10,7 @@ import SORForm from './components/SORForm';
 import JacobiForm from './components/JacobiForm';
 import LagrangeForm from './components/LagrangeForm';
 import VandermondeForm from './components/VandermondeForm';
+import SplineForm from './components/SplineForm';
 
 export default function App() {
   return (
@@ -43,6 +44,7 @@ export default function App() {
             <ul className="flex justify-center gap-6">
               <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/system-of-equations/lagrange">Método de Lagrange</Link></li>
               <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/system-of-equations/Vandermonde">Método de Vandermonde</Link></li>
+              <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/interpolation/splines">Método de Spline</Link></li>
             </ul>
           </nav>
 
@@ -64,6 +66,7 @@ export default function App() {
             {/* Interpolación */}
             <Route path="/system-of-equations/lagrange" element={<LagrangeForm />} />
             <Route path="/system-of-equations/Vandermonde" element={<VandermondeForm />} />
+            <Route path="/interpolation/splines" element={<SplineForm />} />
           </Routes>
         </div>
       </div>

@@ -35,4 +35,7 @@ export const calculateLagrange = (params) => API.post('/system-of-equations/lagr
 //Vandermonde
 export const calculateVandermonde = (params) => API.post('/system-of-equations/Vandermonde', params);
 
+//Splines
+export const calculateSplines = (params) => API.post('/interpolation/splines', params);
+
 export default API;
