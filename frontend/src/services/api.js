@@ -32,4 +32,7 @@ export const calculateJacobi = (params) => API.post('/system-of-equations/jacobi
 //Lagrange
 export const calculateLagrange = (params) => API.post('/system-of-equations/lagrange', params);
 
+//Vandermonde
+export const calculateVandermonde = (params) => API.post('/system-of-equations/Vandermonde', params);
+
 export default API;
