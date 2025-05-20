@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import Desmos from "desmos";
 
 const SplineForm = () => {
   const [points, setPoints] = useState([
@@ -8,10 +9,12 @@ const SplineForm = () => {
   ]);
   const [splineType, setSplineType] = useState("linear");
   const [result, setResult] = useState(null);
+  const calculatorRef = useRef(null);
 
   const handleChange = (index, axis, value) => {
+    const parsedValue = value === "" ? "" : parseFloat(value);
     const newPoints = [...points];
-    newPoints[index][axis] = parseFloat(value);
+    newPoints[index][axis] = parsedValue;
     setPoints(newPoints);
   };
 
@@ -25,6 +28,11 @@ const SplineForm = () => {
   };
 
   const handleSubmit = async () => {
+    if (points.some((p) => isNaN(p.x) || isNaN(p.y))) {
+      alert("Por favor, ingresa todos los valores numéricos válidos.");
+      return;
+    }
+
     try {
       const res = await axios.post("http://localhost:8000/interpolation/splines", {
         x: points.map((p) => p.x),
@@ -38,8 +46,62 @@ const SplineForm = () => {
     }
   };
 
+  useEffect(() => {
+    if (typeof window === "undefined" || !result || !points || points.length < 2) return;
+
+    if (!calculatorRef.current) {
+      const elt = document.getElementById("spline-graph");
+      if (elt) {
+        calculatorRef.current = Desmos.GraphingCalculator(elt, {
+          expressions: false,
+        });
+        console.log("Desmos calculator initialized");
+      }
+    }
+
+    const calculator = calculatorRef.current;
+    if (!calculator) return;
+
+    calculator.resize();
+    calculator.setBlank();
+
+    // Mostrar puntos
+    points.forEach((p, i) => {
+      calculator.setExpression({
+        id: `point-${i}`,
+        latex: `(${p.x}, ${p.y})`,
+        showLabel: true,
+        color: "#e17055",
+      });
+    });
+
+    // Mostrar splines
+    const coef = result.coefficients;
+    for (let i = 0; i < coef.length && i + 1 < points.length; i++) {
+      const [a, b, c = 0, d = 0] = coef[i];
+      const xi = points[i].x;
+      const xi1 = points[i + 1].x;
+
+      let expr = "";
+
+      if (splineType === "linear") {
+        expr = `${a.toFixed(4)} + ${b.toFixed(4)}(x - ${xi})`;
+      } else if (splineType === "quadratic") {
+        expr = `${a.toFixed(4)} + ${b.toFixed(4)}(x - ${xi}) + ${c.toFixed(4)}(x - ${xi})^2`;
+      } else if (splineType === "cubic") {
+        expr = `${a.toFixed(4)} + ${b.toFixed(4)}(x - ${xi}) + ${c.toFixed(4)}(x - ${xi})^2 + ${d.toFixed(4)}(x - ${xi})^3`;
+      }
+
+      calculator.setExpression({
+        id: `spline-${i}`,
+        latex: `y=${expr}\\{${xi} \\le x \\le ${xi1}\\}`,
+        color: "#2e86de",
+      });
+    }
+  }, [result, splineType, points]);
+
   return (
-    <div className="p-4 border rounded shadow-md bg-white max-w-3xl mx-auto">
+    <div className="p-4 border rounded shadow-md bg-white max-w-4xl mx-auto">
       <h2 className="text-xl font-bold mb-4">Interpolación por Splines</h2>
 
       {points.map((point, i) => (
@@ -94,8 +156,8 @@ const SplineForm = () => {
 
       {result && (
         <div className="mt-4">
-          <h3 className="font-semibold">Coeficientes por intervalo:</h3>
-          <div className="mt-2 space-y-2 font-mono text-blue-800">
+          <h3 className="font-semibold mb-2">Coeficientes por intervalo:</h3>
+          <div className="space-y-2 font-mono text-blue-800">
             {result.coefficients.map((coef, i) => (
               <div key={i}>
                 Intervalo {i + 1}: [{coef.map((c) => c.toFixed(4)).join(", ")}]
@@ -104,6 +166,11 @@ const SplineForm = () => {
           </div>
         </div>
       )}
+
+      <div
+        id="spline-graph"
+        style={{ width: "100%", height: "400px", border: "1px solid #ccc", marginTop: "2rem" }}
+      />
     </div>
   );
 };

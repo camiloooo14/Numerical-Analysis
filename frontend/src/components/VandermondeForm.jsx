@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import Desmos from "desmos";
 
 const VandermondeForm = () => {
   const [points, setPoints] = useState([
@@ -7,6 +8,7 @@ const VandermondeForm = () => {
     { x: 1, y: 1 },
   ]);
   const [result, setResult] = useState(null);
+  const graphRef = useRef(null);
 
   const handleChange = (index, axis, value) => {
     const newPoints = [...points];
@@ -19,8 +21,12 @@ const VandermondeForm = () => {
   };
 
   const removePoint = (index) => {
-    const newPoints = points.filter((_, i) => i !== index);
-    setPoints(newPoints);
+    if (points.length > 2) {
+      const newPoints = points.filter((_, i) => i !== index);
+      setPoints(newPoints);
+    } else {
+      alert("Debe haber al menos dos puntos.");
+    }
   };
 
   const handleSubmit = async () => {
@@ -35,6 +41,37 @@ const VandermondeForm = () => {
       alert("Error al enviar los datos al backend.");
     }
   };
+
+  useEffect(() => {
+    if (result?.pol && graphRef.current) {
+      const elt = graphRef.current;
+      const calculator = Desmos.GraphingCalculator(elt, {
+        expressions: false,
+        settingsMenu: false,
+        zoomButtons: true,
+      });
+
+   
+      calculator.setExpression({
+        id: "polynomial",
+        latex: `f(x)=${result.pol}`,
+        color: Desmos.Colors.BLUE,
+      });
+
+  
+      points.forEach((p, i) => {
+        calculator.setExpression({
+          id: `point${i}`,
+          latex: `(${p.x}, ${p.y})`,
+          showLabel: true,
+          label: `P_{${i + 1}}`,
+          color: Desmos.Colors.RED,
+        });
+      });
+
+      return () => calculator.destroy();
+    }
+  }, [result]);
 
   return (
     <div className="p-4 border rounded shadow-md bg-white max-w-3xl mx-auto">
@@ -69,7 +106,10 @@ const VandermondeForm = () => {
         <button onClick={addPoint} className="bg-gray-200 px-3 py-1 rounded">
           Agregar punto
         </button>
-        <button onClick={handleSubmit} className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <button
+          onClick={handleSubmit}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
           Calcular polinomio
         </button>
       </div>
@@ -81,6 +121,11 @@ const VandermondeForm = () => {
 
           <h4 className="mt-4 font-semibold">Coeficientes:</h4>
           <p>[{result.coefficients.map((c) => c.toFixed(4)).join(", ")}]</p>
+
+          <div className="mt-6">
+            <h4 className="font-semibold mb-2">Gráfico:</h4>
+            <div ref={graphRef} style={{ height: "400px" }}></div>
+          </div>
         </div>
       )}
     </div>

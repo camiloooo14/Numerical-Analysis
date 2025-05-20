@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import Desmos from "desmos";
 
 const LagrangeForm = () => {
   const [points, setPoints] = useState([{ x: 0, y: 0 }, { x: 1, y: 1 }]);
   const [result, setResult] = useState(null);
+  const desmosRef = useRef(null);
+  const calculatorRef = useRef(null);
 
   const handlePointChange = (index, axis) => (e) => {
     const value = parseFloat(e.target.value);
@@ -40,6 +43,29 @@ const LagrangeForm = () => {
       alert("Error al enviar los datos al backend.");
     }
   };
+
+  useEffect(() => {
+    if (result?.pol && desmosRef.current) {
+      if (!calculatorRef.current) {
+        calculatorRef.current = Desmos.GraphingCalculator(desmosRef.current, {
+          expressions: true,
+          keypad: false,
+        });
+      }
+
+      const expression = result.pol.replaceAll("^", "**"); // Desmos acepta "^" pero por si acaso
+      calculatorRef.current.setExpression({ id: "poly", latex: `y=${expression}` });
+
+      points.forEach((point, index) => {
+        calculatorRef.current.setExpression({
+          id: `point${index}`,
+          latex: `(${point.x}, ${point.y})`,
+          showLabel: true,
+          label: `P${index + 1}`,
+        });
+      });
+    }
+  }, [result]);
 
   return (
     <div className="p-4 border rounded shadow-md bg-white max-w-3xl mx-auto">
@@ -103,6 +129,12 @@ const LagrangeForm = () => {
 
           <h3 className="font-semibold mt-4">Polinomio resultante:</h3>
           <p className="mt-2 bg-gray-100 p-3 rounded font-mono">{result.pol}</p>
+
+          {/* Contenedor de la gráfica */}
+          <div className="mt-6">
+            <h3 className="font-semibold mb-2">Gráfica del polinomio:</h3>
+            <div ref={desmosRef} style={{ height: "400px" }} />
+          </div>
         </div>
       )}
     </div>
