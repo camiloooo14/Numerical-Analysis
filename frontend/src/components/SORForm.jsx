@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const GaussSeidelForm = () => {
+const SORForm = () => {
   const [size, setSize] = useState(3);
   const [matrixA, setMatrixA] = useState([]);
   const [vectorB, setVectorB] = useState([]);
   const [x0, setX0] = useState([]);
   const [tol, setTol] = useState(0.0001);
   const [niter, setNiter] = useState(25);
+  const [relaxationFactor, setRelaxationFactor] = useState(1.0);
   const [result, setResult] = useState(null);
-
 
   useEffect(() => {
     setMatrixA(Array.from({ length: size }, () => Array(size).fill(0)));
@@ -33,10 +33,11 @@ const GaussSeidelForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/system-of-equations/gauss-seidel",{
+      const res = await axios.post("http://localhost:8000/system-of-equations/sor", {
         matrix_a: matrixA,
         vector_b: vectorB,
         x0,
+        relaxation_factor: relaxationFactor,
         tol,
         niter,
       });
@@ -49,7 +50,7 @@ const GaussSeidelForm = () => {
 
   return (
     <div className="p-4 border rounded shadow-md bg-white max-w-4xl mx-auto">
-      <h2 className="text-xl font-bold mb-4">Método de Gauss-Seidel</h2>
+      <h2 className="text-xl font-bold mb-4">Método de SOR</h2>
 
       <div className="mb-4">
         <label className="block font-semibold mb-1">Tamaño de la matriz</label>
@@ -115,6 +116,21 @@ const GaussSeidelForm = () => {
 
       <div className="mb-4 flex gap-4">
         <div>
+          <label className="block font-semibold mb-1">
+            Factor de relajación (0 &lt; w &le; 2)
+          </label>
+          <input
+            type="number"
+            min="0.01"
+            max="2"
+            step="0.01"
+            value={relaxationFactor}
+            onChange={(e) => setRelaxationFactor(parseFloat(e.target.value))}
+            className="w-32 px-2 py-1 border rounded"
+            required
+          />
+        </div>
+        <div>
           <label className="block font-semibold mb-1">Tolerancia</label>
           <input
             type="number"
@@ -136,19 +152,15 @@ const GaussSeidelForm = () => {
 
       <button
         onClick={handleSubmit}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
       >
-        Ejecutar Gauss-Seidel
+        Ejecutar SOR
       </button>
 
       {result && (
         <div className="mt-6">
-          <p>
-            <strong>Radio espectral:</strong> {result.spectral_radius.toFixed(6)}
-          </p>
-          <p>
-            <strong>¿Converge?</strong> {result.converges ? "Sí" : "No"}
-          </p>
+          <p><strong>Radio espectral:</strong> {result.spectral_radius.toFixed(6)}</p>
+          <p><strong>¿Converge?</strong> {result.converges ? "Sí" : "No"}</p>
 
           <h3 className="mt-4 font-semibold">Iteraciones:</h3>
           <ul className="list-disc pl-5 mt-2">
@@ -164,4 +176,4 @@ const GaussSeidelForm = () => {
   );
 };
 
-export default GaussSeidelForm;
+export default SORForm;

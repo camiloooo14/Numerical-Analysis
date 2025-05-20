@@ -21,6 +21,9 @@ export const calculateHelp = (params) => API.post('/help', params);
 export const calculateSecant = (params) => API.post('/Secant', params);
 
 //Gauss-Seidel
-export const calculateGaussSeidel = (params) => API.post('/gauss_seidel', params);
+export const calculateGaussSeidel = (params) => API.post('/system-of-equations/gauss-seidel', params);
+
+//SOR
+export const calculateSOR = (params) => API.post('/system-of-equations/sor', params);
 
 export default API;

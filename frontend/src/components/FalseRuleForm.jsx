@@ -43,7 +43,7 @@ export default function FalseRuleForm() {
     }
   };
 
-  // Crear expresiones para puntos xm
+ 
   const points = result?.table.map(row => ({
     x: row.xm,
     y: row.f_xm
