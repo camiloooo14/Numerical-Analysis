@@ -46,6 +46,11 @@ export default function App() {
               <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/system-of-equations/Vandermonde">Método de Vandermonde</Link></li>
               <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/interpolation/splines">Método de Spline</Link></li>
             </ul>
+            <h2 className="text-2xl font-semibold mt-8 mb-4 text-indigo-700">Sección de comparación</h2>
+            <ul className="flex justify-center gap-6">
+              
+            </ul>
+
           </nav>
 
           <Routes>
