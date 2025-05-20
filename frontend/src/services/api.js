@@ -29,4 +29,7 @@ export const calculateSOR = (params) => API.post('/system-of-equations/sor', par
 //Jacobi
 export const calculateJacobi = (params) => API.post('/system-of-equations/jacobi', params);
 
+//Lagrange
+export const calculateLagrange = (params) => API.post('/system-of-equations/lagrange', params);
+
 export default API;
