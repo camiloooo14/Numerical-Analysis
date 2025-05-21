@@ -11,6 +11,7 @@ import JacobiForm from './components/JacobiForm';
 import LagrangeForm from './components/LagrangeForm';
 import VandermondeForm from './components/VandermondeForm';
 import SplineForm from './components/SplineForm';
+import ComparisionLSM from './components/ComparisionLSM';
 
 export default function App() {
   return (
@@ -47,6 +48,7 @@ export default function App() {
               <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/interpolation/splines">Método de Spline</Link></li>
             </ul>
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-indigo-700">Sección de comparación</h2>
+            <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/routers/roots/comparisonLSM">Comparación de métodos</Link></li>
             <ul className="flex justify-center gap-6">    
             </ul>
 
@@ -71,6 +73,9 @@ export default function App() {
             <Route path="/system-of-equations/lagrange" element={<LagrangeForm />} />
             <Route path="/system-of-equations/Vandermonde" element={<VandermondeForm />} />
             <Route path="/interpolation/splines" element={<SplineForm />} />
+
+            {/* Comparación de métodos */}
+            <Route path="/routers/roots/comparisonLSM" element={<ComparisionLSM />} />
           </Routes>
         </div>
       </div>

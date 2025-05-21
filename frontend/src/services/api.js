@@ -38,4 +38,7 @@ export const calculateVandermonde = (params) => API.post('/system-of-equations/V
 //Splines
 export const calculateSplines = (params) => API.post('/interpolation/splines', params);
 
+//Comparison LSM
+export const calculateComparisonLSM = (params) => API.post('/routers/roots/comparisonLSM', params);
+
 export default API;
