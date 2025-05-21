@@ -13,7 +13,7 @@ export default function HelpPage() {
         <li><strong>Bisección:</strong> Divide el intervalo hasta encontrar la raíz con la precisión deseada.</li>
         <li><strong>Newton:</strong> Usa derivadas para aproximar la raíz.</li>
         <li><strong>Punto Fijo:</strong> Itera sobre una función <InlineMath math="g(x)" /> para encontrar la raíz.</li>
-        <li><strong>Regla Falsa:</strong> Similar a bisección, pero con mejor convergencia.</li>
+        <li><strong>Regla Falsa:</strong> Similar a bisección, pero con mejor convergencia. Se deben ingresar dos valores con signo opuesto para que la función cambie de signo.</li>
         <li><strong>Secante:</strong> Variante de Newton sin usar derivadas.</li>
         <li><strong>Simbólica:</strong> Utiliza análisis simbólico para encontrar raíces.</li>
       </ul>
@@ -31,6 +31,7 @@ export default function HelpPage() {
         <li><strong>Jacobi:</strong> Método iterativo.</li>
         <li><strong>Gauss-Seidel:</strong> Iteración mejorada sobre Jacobi.</li>
         <li><strong>SOR:</strong> Relaja el método de Gauss-Seidel para mejorar la convergencia.</li>
+        <li><strong>Consejos:</strong> Evitar ingresar matices singulares para mejorar la precisión.</li>
       </ul>
 
       <h2>Entrada de Funciones</h2>
@@ -55,8 +56,9 @@ export default function HelpPage() {
         </li>
       </ul>
 
+
       <footer style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#555' }}>
-        Desarrollado por Sara, Camilo y Samuel – Proyecto de métodos numéricos
+        Desarrollado por Sara, Camilo, Lorena y Samuel – Proyecto de métodos numéricos
       </footer>
     </div>
   );

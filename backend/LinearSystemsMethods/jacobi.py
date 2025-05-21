@@ -1,9 +1,8 @@
 from typing import List
-
 import numpy as np
 from pydantic import BaseModel, Field
 
-
+# Clases
 class JacobiParams(BaseModel):
     matrix_a: List[List[float]]
     vector_b: List[float]
@@ -11,12 +10,10 @@ class JacobiParams(BaseModel):
     tol: float = Field(..., gt=1e-21, le=1)
     niter: int = Field(..., gt=0, le=100)
 
-
 class JacobiIteration(BaseModel):
     step: int
     x: List[float]
     error: float
-
 
 class JacobiResult(BaseModel):
     transition_matrix: List[List[float]]
@@ -25,16 +22,15 @@ class JacobiResult(BaseModel):
     iterations: List[JacobiIteration]
     converges: bool
 
-
-# Método de Jacobi adaptado
+# Método Jacobi
 def jacobi_method(params: JacobiParams) -> JacobiResult:
     A = np.array(params.matrix_a)
     b = np.array(params.vector_b).reshape((-1, 1))
     x0 = np.array(params.x0).reshape((-1, 1))
 
     D = np.diag(np.diag(A))
-    L = -1 * np.tril(A) + D
-    U = -1 * np.triu(A) + D
+    L = -1 * np.tril(A, -1)
+    U = -1 * np.triu(A, 1)
     T = np.linalg.inv(D) @ (L + U)
     C = np.linalg.inv(D) @ b
 
@@ -43,12 +39,12 @@ def jacobi_method(params: JacobiParams) -> JacobiResult:
 
     iterations = []
     xP = x0
-    for i in range(params.niter):
+    for k in range(params.niter):
         xA = T @ xP + C
         error = np.linalg.norm(xP - xA)
         xP = xA
 
-        iterations.append(JacobiIteration(step=i, x=xA.flatten().tolist(), error=error))
+        iterations.append(JacobiIteration(step=k, x=xA.flatten().tolist(), error=error))
         if error < params.tol:
             break
 
