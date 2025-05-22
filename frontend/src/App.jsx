@@ -48,7 +48,7 @@ export default function App() {
               <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/interpolation/splines">Método de Spline</Link></li>
             </ul>
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-indigo-700">Sección de comparación</h2>
-            <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/routers/roots/comparisonLSM">Comparación de métodos de sistemas lineales</Link></li>
+            <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/comparison/comparisonLSM">Comparación de métodos de sistemas lineales</Link></li>
             <ul className="flex justify-center gap-6">    
             </ul>
 
@@ -75,7 +75,7 @@ export default function App() {
             <Route path="/interpolation/splines" element={<SplineForm />} />
 
             {/* Comparación de métodos */}
-            <Route path="/routers/roots/comparisonLSM" element={<ComparisionLSM />} />
+            <Route path="/comparison/comparisonLSM" element={<ComparisionLSM />} />
           </Routes>
         </div>
       </div>
