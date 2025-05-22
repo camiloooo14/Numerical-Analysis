@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from fastapi import APIRouter
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from typing import List
 import time
@@ -6,8 +7,17 @@ from LinearSystemsMethods.gauss_seidel import gauss_seidel_method, GaussSeidelPa
 from LinearSystemsMethods.jacobi import jacobi_method, JacobiParams
 from LinearSystemsMethods.sor import sor_method, SORParams
 
+router = APIRouter(
+    prefix="/comparison",
+    tags=["comparison"],
+)
 
-app = FastAPI()
+responses = {
+    409: {
+        "description": "Comparison Failed",
+    },
+}
+
 
 class ComparacionEntrada(BaseModel):
     matrix_a: List[List[float]]
@@ -25,7 +35,6 @@ class ComparacionResultado(BaseModel):
     converge: bool
     tiempo_ms: float
 
-@app.post("/system-of-equations/comparisonLSM", response_model=List[ComparacionResultado])
 def comparisonLSM(data: ComparacionEntrada):
     resultados = []
 
@@ -76,3 +85,25 @@ def comparisonLSM(data: ComparacionEntrada):
     ))
 
     return resultados
+
+
+@router.post(
+    "/comparisonLSM",
+    response_model=List[ComparacionResultado],
+    responses={
+        200: {"model": List[ComparacionResultado]},
+        **responses,
+    },
+)
+def get_comparisonLSM_params(params: ComparacionEntrada) -> List[ComparacionResultado]:
+    try:
+        solution = comparisonLSM(params)
+        return solution
+    except Exception as e:
+        return JSONResponse(
+            status_code=409,
+            content={
+                "detail": "Cannot find comparison with the given parameters",
+                "error": str(e),
+            },
+        )

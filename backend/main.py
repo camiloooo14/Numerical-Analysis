@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from routers import interpolation, roots, system_of_equations
+from routers import interpolation, roots, system_of_equations, comparison
 
 app = FastAPI()
 app.add_middleware(
@@ -15,5 +15,6 @@ app.add_middleware(
 app.include_router(roots.router)
 app.include_router(interpolation.router)
 app.include_router(system_of_equations.router)
+app.include_router(comparison.router)
 
 #C:\Users\sarii\AppData\Roaming\Python\Python313\Scripts\uvicorn main:app --reload

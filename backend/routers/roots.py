@@ -15,7 +15,6 @@ from RootFindingMethods.regla_falsa import FalseRuleParams, FalseRuleRoots, Regl
 from RootFindingMethods.secante import Secante, SecanteParams, SecanteRoots
 from RootFindingMethods.symbolic import SymbolicRoots, SymbolicRootsParams, symbolic_roots
 from LinearSystemsMethods.gauss_seidel import gauss_seidel_method, GaussSeidelParams, GaussSeidelResult
-from LinearSystemsMethods.comparisonLSM import comparisonLSM, ComparacionEntrada, ComparacionResultado
 
 
 router = APIRouter(
@@ -234,27 +233,6 @@ def get_GaussSeidel_params(params: GaussSeidelParams) -> GaussSeidelResult:
             status_code=409,
             content={
                 "detail": "Cannot find roots with the given parameters",
-                "error": str(e),
-            },
-        )
-
-@router.post(
-    "/comparisonLSM",
-    response_model=List[ComparacionResultado],
-    responses={
-        200: {"model": List[ComparacionResultado]},
-        **responses,
-    },
-)
-def get_comparisonLSM_params(params: ComparacionEntrada) -> List[ComparacionResultado]:
-    try:
-        solution = comparisonLSM(params)
-        return solution
-    except Exception as e:
-        return JSONResponse(
-            status_code=409,
-            content={
-                "detail": "Cannot find comparison with the given parameters",
                 "error": str(e),
             },
         )

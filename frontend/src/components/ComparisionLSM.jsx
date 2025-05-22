@@ -17,7 +17,7 @@ function ComparisionLSM() {
     setLoading(true);
     setError("");
     try {
-      const response = await axios.post("http://localhost:8000/routers/roots/comparisonLSM", {
+      const response = await axios.post("http://localhost:8000/comparison/comparisonLSM", {
         matrix_a: JSON.parse(matrixA),
         vector_b: JSON.parse(vectorB),
         x0: JSON.parse(x0),
