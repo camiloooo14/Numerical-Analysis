@@ -56,6 +56,7 @@ export default function HelpPage() {
         </li>
         <p>Para usar la función seno, coseno y logaritmo natural, se debe escribir sin(x), cos(x) y ln(x) respectivamente.
          <p>Para calcular una derivada en caso de necesitarla, ir a la calculadora de derivadas: https://es.wolframalpha.com/calculators/derivative-calculator</p>   
+         <p>Para usar funciones trigonométricas, se debe escribir \sin(x), \cos(x) y \tan(x) respectivamente, no olvidar el backslash.</p>
         </p>
       </ul>
 
