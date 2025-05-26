@@ -58,7 +58,7 @@ const GaussSeidelForm = () => {
           onChange={(e) => setSize(parseInt(e.target.value))}
           className="px-2 py-1 border rounded"
         >
-          {[2, 3, 4, 5, 6].map((n) => (
+          {[2, 3, 4, 5, 6, 7].map((n) => (
             <option key={n} value={n}>
               {n} x {n}
             </option>
