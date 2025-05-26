@@ -54,6 +54,9 @@ export default function HelpPage() {
           <InlineMath math={'\\cos(x)'} />, 
           <InlineMath math={'\\ln(x)'} />
         </li>
+        <p>Para usar la función seno, coseno y logaritmo natural, se debe escribir sin(x), cos(x) y ln(x) respectivamente.
+         <p>Para calcular una derivada en caso de necesitarla, ir a la calculadora de derivadas: https://es.wolframalpha.com/calculators/derivative-calculator</p>   
+        </p>
       </ul>
 
 

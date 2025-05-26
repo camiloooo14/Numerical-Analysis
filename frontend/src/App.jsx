@@ -13,6 +13,7 @@ import VandermondeForm from './components/VandermondeForm';
 import SplineForm from './components/SplineForm';
 import ComparisionLSM from './components/ComparisionLSM';
 
+
 export default function App() {
   return (
     <Router>

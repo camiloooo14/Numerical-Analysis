@@ -76,7 +76,7 @@ const GaussSeidelForm = () => {
                 type="number"
                 value={matrixA[i][j]}
                 onChange={handleInputChange(setMatrixA, i, j)}
-                className="w-16 px-2 py-1 border rounded"
+                className="w-4 px-2 py-1 border rounded"
               />
             ))}
           </div>
