@@ -12,6 +12,7 @@ import LagrangeForm from './components/LagrangeForm';
 import VandermondeForm from './components/VandermondeForm';
 import SplineForm from './components/SplineForm';
 import ComparisionLSM from './components/ComparisionLSM';
+import RootComparison from './components/RootComparison';
 
 
 export default function App() {
@@ -49,10 +50,10 @@ export default function App() {
               <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/interpolation/splines">Método de Spline</Link></li>
             </ul>
             <h2 className="text-2xl font-semibold mt-8 mb-4 text-indigo-700">Sección de comparación</h2>
-            <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/comparison/comparisonLSM">Comparación de métodos de sistemas lineales</Link></li>
             <ul className="flex justify-center gap-6">    
+              <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/comparison/comparisonLSM">Comparación de métodos de sistemas lineales</Link></li>
+              <li><Link className="text-indigo-500 hover:text-indigo-700 text-lg" to="/comparison/rootComparison">Comparación de métodos de raíces</Link></li>
             </ul>
-
           </nav>
 
           <Routes>
@@ -77,6 +78,7 @@ export default function App() {
 
             {/* Comparación de métodos */}
             <Route path="/comparison/comparisonLSM" element={<ComparisionLSM />} />
+            <Route path="/comparison/rootComparison" element={<RootComparison />} />
           </Routes>
         </div>
       </div>
