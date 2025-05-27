@@ -58,7 +58,7 @@ export default function HelpPage() {
          <p>Para calcular una derivada en caso de necesitarla, ir a la calculadora de derivadas: https://es.wolframalpha.com/calculators/derivative-calculator</p>   
          <p>Para usar funciones trigonométricas, se debe escribir \sin(x), \cos(x) y \tan(x) respectivamente, no olvidar el backslash.</p>
         </p>
-        <p>Para usar exponentes, de deben escribir entre {}, por ejemplo: x^{2} </p>
+        <p>Para usar exponentes, se deben escribir entre llaves, por ejemplo: "x^&#123;2&#125;" para x^2.</p>
       </ul>
       <footer style={{ marginTop: '2rem', fontSize: '0.9rem', color: '#555' }}>
         Desarrollado por Sara, Camilo, Lorena y Samuel – Proyecto de métodos numéricos
