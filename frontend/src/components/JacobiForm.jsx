@@ -71,12 +71,13 @@ const JacobiForm = () => {
           <div key={i} className="flex gap-2 mb-1">
             {row.map((val, j) => (
               <input
-                key={j}
-                type="number"
-                value={matrixA[i][j]}
-                onChange={handleInputChange(setMatrixA, i, j)}
-                className="w-16 px-2 py-1 border rounded"
-              />
+              key={j}
+              type="number"
+              value={matrixA[i][j]}
+              onChange={handleInputChange(setMatrixA, i, j)}
+              style={{ width: "30px", padding: "2px", fontSize: "12px", textAlign: "center" }}
+              className="border rounded"
+            />            
             ))}
           </div>
         ))}

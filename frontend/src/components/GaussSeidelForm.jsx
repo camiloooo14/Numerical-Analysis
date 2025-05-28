@@ -10,7 +10,6 @@ const GaussSeidelForm = () => {
   const [niter, setNiter] = useState(25);
   const [result, setResult] = useState(null);
 
-
   useEffect(() => {
     setMatrixA(Array.from({ length: size }, () => Array(size).fill(0)));
     setVectorB(Array(size).fill(0));
@@ -33,7 +32,7 @@ const GaussSeidelForm = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post("http://localhost:8000/system-of-equations/gauss-seidel",{
+      const res = await axios.post("http://localhost:8000/system-of-equations/gauss-seidel", {
         matrix_a: matrixA,
         vector_b: vectorB,
         x0,
@@ -76,7 +75,8 @@ const GaussSeidelForm = () => {
                 type="number"
                 value={matrixA[i][j]}
                 onChange={handleInputChange(setMatrixA, i, j)}
-                className="w-4 px-2 py-1 border rounded"
+                style={{ width: "30px", padding: "2px", fontSize: "12px", textAlign: "center" }}
+                className="border rounded"
               />
             ))}
           </div>
@@ -92,7 +92,8 @@ const GaussSeidelForm = () => {
               type="number"
               value={val}
               onChange={handleInputChange(setVectorB, i)}
-              className="w-16 px-2 py-1 border rounded"
+              style={{ width: "30px", padding: "2px", fontSize: "12px", textAlign: "center" }}
+              className="border rounded"
             />
           ))}
         </div>
@@ -107,13 +108,14 @@ const GaussSeidelForm = () => {
               type="number"
               value={val}
               onChange={handleInputChange(setX0, i)}
-              className="w-16 px-2 py-1 border rounded"
+              style={{ width: "30px", padding: "2px", fontSize: "12px", textAlign: "center" }}
+              className="border rounded"
             />
           ))}
         </div>
       </div>
 
-      <div className="mb-4 flex gap-4">
+      <div className="mb-4 flex gap-4 flex-wrap">
         <div>
           <label className="block font-semibold mb-1">Tolerancia</label>
           <input
