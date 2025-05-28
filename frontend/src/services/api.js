@@ -1,4 +1,4 @@
-// src/services/api.js
+
 import axios from 'axios';
 
 const API = axios.create({
@@ -39,6 +39,5 @@ export const calculateVandermonde = (params) => API.post('/system-of-equations/V
 export const calculateSplines = (params) => API.post('/interpolation/splines', params);
 
 //Comparison LSM
-export const calculateComparisonLSM = (params) => API.post('/routers/roots/comparisonLSM', params);
-
+export const calculateComparisonLSM = (params) => API.post('/comparison/comparisonLSM', params);
 export default API;
