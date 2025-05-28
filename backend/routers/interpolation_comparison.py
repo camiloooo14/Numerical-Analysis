@@ -80,18 +80,7 @@ def comparar_metodos(data: ComparacionInterpolacionEntrada) -> List[ComparacionI
     except Exception as e:
         print(f"Vandermonde falló: {e}")
 
-    # Newton
-    try:
-        start = time.time()
-        result = NewtonInterpol(data.x, data.y)
-        tiempo = (time.time() - start) * 1000
-        resultados.append(ComparacionInterpolacionResultado(
-            metodo="Newton",
-            polinomio=result.pol,
-            tiempo_ms=tiempo
-        ))
-    except Exception as e:
-        print(f"Newton falló: {e}")
+
 
     # Spline
     if data.grado is not None:

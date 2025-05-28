@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import DesmosGraph from "./DesmosGraph";
-import "./BisectionForm.css";
 
 export default function BisectionForm() {
   const [form, setForm] = useState({

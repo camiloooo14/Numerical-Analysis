@@ -1,8 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import "./SecanteForm.css";
 import DesmosGraph from "./DesmosGraph";
-
 
 export default function SecanteForm() {
   const [form, setForm] = useState({
@@ -165,7 +163,6 @@ export default function SecanteForm() {
             </table>
           </div>
 
-          {/*  */}
           <div className="mt-10">
             <h4 className="text-lg font-semibold text-gray-700 mb-2">Visualización de f(x):</h4>
             <DesmosGraph

@@ -7,7 +7,9 @@ function ComparisionLSM() {
   const [x0, setX0] = useState("[0,0]");
   const [tol, setTol] = useState(0.0001);
   const [niter, setNiter] = useState(100);
-  const [relaxation, setRelaxation] = useState(1.1);
+  const [relaxation1, setRelaxation1] = useState(1.1);
+  const [relaxation2, setRelaxation2] = useState(1.2);
+  const [relaxation3, setRelaxation3] = useState(1.3);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,7 +25,11 @@ function ComparisionLSM() {
         x0: JSON.parse(x0),
         tol: parseFloat(tol),
         niter: parseInt(niter),
-        relaxation_factor: parseFloat(relaxation)
+        relaxation_factors: [
+          parseFloat(relaxation1),
+          parseFloat(relaxation2),
+          parseFloat(relaxation3)
+        ],
       });
       setResults(response.data);
     } catch (err) {
@@ -68,7 +74,7 @@ function ComparisionLSM() {
             <label className="block font-semibold">Tolerancia:</label>
             <input
               type="number"
-              step="any"
+              step="0.1"
               value={tol}
               onChange={(e) => setTol(e.target.value)}
               className="w-full border p-2 rounded"
@@ -84,12 +90,32 @@ function ComparisionLSM() {
             />
           </div>
           <div>
-            <label className="block font-semibold">Factor de relajación ω:</label>
+            <label className="block font-semibold">Factor de relajación ω1:</label>
             <input
               type="number"
-              step="any"
-              value={relaxation}
-              onChange={(e) => setRelaxation(e.target.value)}
+              step="0.1"
+              value={relaxation1}
+              onChange={(e) => setRelaxation1(e.target.value)}
+              className="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label className="block font-semibold">Factor de relajación ω2:</label>
+            <input
+              type="number"
+              step="0.1"
+              value={relaxation2}
+              onChange={(e) => setRelaxation2(e.target.value)}
+              className="w-full border p-2 rounded"
+            />
+          </div>
+          <div>
+            <label className="block font-semibold">Factor de relajación ω3:</label>
+            <input
+              type="number"
+              step="0.1"
+              value={relaxation3}
+              onChange={(e) => setRelaxation3(e.target.value)}
               className="w-full border p-2 rounded"
             />
           </div>

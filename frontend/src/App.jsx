@@ -14,12 +14,12 @@ import SplineForm from './components/SplineForm';
 import ComparisionLSM from './components/ComparisionLSM';
 import RootComparison from './components/RootComparison';
 import InterpolationComparison from './components/InterpolationComparison';
-
+import './index.css';
 
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 p-8">
+      <div className="min-h-screen bg-red-50 p-8">
         <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-md p-6">
           <h1 className="text-4xl font-bold mb-6 text-center text-indigo-600">Proyecto de Análisis Numérico</h1>
           <nav className="mb-8">
